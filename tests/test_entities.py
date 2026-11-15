@@ -13,7 +13,7 @@ import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry, async_fire_time_changed
 from pytest_homeassistant_custom_component.test_util.aiohttp import AiohttpClientMocker
 
-from .conftest import URL, mock_board
+from .conftest import URL, mock_board, status
 
 
 def posts(mock: AiohttpClientMocker) -> list[str]:
@@ -23,7 +23,7 @@ def posts(mock: AiohttpClientMocker) -> list[str]:
 
 async def test_values(hass: HomeAssistant, setup_board: MockConfigEntry):
     assert hass.states.get("sensor.thinklab_esp32_case_temperature").state == "34.5"
-    assert hass.states.get("sensor.thinklab_esp32_fan_speed").state == "720"
+    assert hass.states.get("sensor.thinklab_esp32_fan_1_speed").state == "720"
     assert hass.states.get("sensor.thinklab_esp32_fan_duty").state == "14"
     assert hass.states.get("sensor.thinklab_esp32_fan_curve_demand").state == "13.7"
     assert hass.states.get("sensor.thinklab_esp32_host_answer_age").state == "20"
@@ -31,6 +31,10 @@ async def test_values(hass: HomeAssistant, setup_board: MockConfigEntry):
     assert hass.states.get("sensor.thinklab_esp32_last_restart").state not in ("unknown", None)
     assert hass.states.get("binary_sensor.thinklab_esp32_host_link").state == "off"
     assert hass.states.get("binary_sensor.thinklab_esp32_fan").state == "on"
+    assert hass.states.get("binary_sensor.thinklab_esp32_fan_stalled").state == "off"
+    assert hass.states.get("sensor.thinklab_esp32_fan_2_speed").state == "705"
+    assert hass.states.get("sensor.thinklab_esp32_fan_minimum_duty").state == "8"
+    assert hass.states.get("sensor.thinklab_esp32_fan_stall_kicks") is None  # disabled by default
     assert hass.states.get("select.thinklab_esp32_fan_mode").state == "auto"
     assert hass.states.get("number.thinklab_esp32_fan_duty_setting").state == "14"
     assert hass.states.get("sensor.thinklab_esp32_parse_errors") is None  # disabled by default
@@ -39,10 +43,11 @@ async def test_values(hass: HomeAssistant, setup_board: MockConfigEntry):
 async def test_no_tach_reading(
     hass: HomeAssistant, entry: MockConfigEntry, aioclient_mock: AiohttpClientMocker
 ):
-    mock_board(aioclient_mock, fan_rpm=-1, fan_pct=-1, case_c=None)
+    mock_board(aioclient_mock, fan_rpm=-1, fan2_rpm=-1, fan_pct=-1, case_c=None)
     assert await hass.config_entries.async_setup(entry.entry_id)
     await hass.async_block_till_done()
-    assert hass.states.get("sensor.thinklab_esp32_fan_speed").state == "unknown"
+    assert hass.states.get("sensor.thinklab_esp32_fan_1_speed").state == "unknown"
+    assert hass.states.get("sensor.thinklab_esp32_fan_2_speed").state == "unknown"
     assert hass.states.get("number.thinklab_esp32_fan_duty_setting").state == "unknown"
     assert hass.states.get("sensor.thinklab_esp32_case_temperature").state == "unknown"
 
@@ -142,3 +147,15 @@ async def test_wrong_login_starts_reauth(
 async def test_unload(hass: HomeAssistant, setup_board: MockConfigEntry):
     assert await hass.config_entries.async_unload(setup_board.entry_id)
     assert setup_board.state is ConfigEntryState.NOT_LOADED
+
+
+async def test_firmware_without_fan2_fields(
+    hass: HomeAssistant, entry: MockConfigEntry, aioclient_mock: AiohttpClientMocker
+):
+    new_keys = ("fan2", "fan_min", "fan_stall")
+    old = {k: v for k, v in status(build="v0.3.2").items() if not k.startswith(new_keys)}
+    aioclient_mock.get(f"{URL}/status.json", json=old)
+    assert await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+    assert hass.states.get("sensor.thinklab_esp32_fan_2_speed").state == "unknown"
+    assert hass.states.get("binary_sensor.thinklab_esp32_fan_stalled").state == "unknown"

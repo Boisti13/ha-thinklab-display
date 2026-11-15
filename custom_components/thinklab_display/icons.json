@@ -1,26 +1,74 @@
 {
   "entity": {
     "sensor": {
-      "fan_speed": { "default": "mdi:fan" },
-      "fan_duty": { "default": "mdi:fan-chevron-up" },
-      "fan_curve_demand": { "default": "mdi:chart-bell-curve-cumulative" },
-      "fan_manual_time_left": { "default": "mdi:timer-sand" },
-      "host_answer_age": { "default": "mdi:lan-connect" },
-      "parse_errors": { "default": "mdi:code-json" }
+      "fan_speed": {
+        "default": "mdi:fan"
+      },
+      "fan_duty": {
+        "default": "mdi:fan-chevron-up"
+      },
+      "fan_curve_demand": {
+        "default": "mdi:chart-bell-curve-cumulative"
+      },
+      "fan_manual_time_left": {
+        "default": "mdi:timer-sand"
+      },
+      "host_answer_age": {
+        "default": "mdi:lan-connect"
+      },
+      "parse_errors": {
+        "default": "mdi:code-json"
+      },
+      "fan2_speed": {
+        "default": "mdi:fan"
+      },
+      "fan_min_duty": {
+        "default": "mdi:fan-chevron-down"
+      },
+      "fan_stall_kicks": {
+        "default": "mdi:fan-alert"
+      }
     },
     "binary_sensor": {
-      "host_link_problem": { "default": "mdi:lan-connect", "state": { "on": "mdi:lan-disconnect" } },
-      "fan_running": { "default": "mdi:fan", "state": { "off": "mdi:fan-off" } }
+      "host_link_problem": {
+        "default": "mdi:lan-connect",
+        "state": {
+          "on": "mdi:lan-disconnect"
+        }
+      },
+      "fan_running": {
+        "default": "mdi:fan",
+        "state": {
+          "off": "mdi:fan-off"
+        }
+      },
+      "fan_stalled": {
+        "default": "mdi:fan",
+        "state": {
+          "on": "mdi:fan-alert"
+        }
+      }
     },
     "select": {
-      "fan_mode": { "default": "mdi:fan-auto", "state": { "manual": "mdi:hand-back-right" } }
+      "fan_mode": {
+        "default": "mdi:fan-auto",
+        "state": {
+          "manual": "mdi:hand-back-right"
+        }
+      }
     },
     "number": {
-      "fan_manual_duty": { "default": "mdi:fan" }
+      "fan_manual_duty": {
+        "default": "mdi:fan"
+      }
     },
     "button": {
-      "next_page": { "default": "mdi:page-next" },
-      "refresh_page": { "default": "mdi:refresh" }
+      "next_page": {
+        "default": "mdi:page-next"
+      },
+      "refresh_page": {
+        "default": "mdi:refresh"
+      }
     }
   }
 }

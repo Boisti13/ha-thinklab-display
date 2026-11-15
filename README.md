@@ -71,7 +71,7 @@ Tell me when the case fan is driven but doesn't turn:
 ```yaml
 triggers:
   - trigger: numeric_state
-    entity_id: sensor.thinklab_esp32_fan_speed
+    entity_id: sensor.thinklab_esp32_fan_1_speed
     below: 100
     for: "00:05:00"
 conditions:

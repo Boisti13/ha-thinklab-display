@@ -63,6 +63,12 @@ SENSORS: tuple[ThinkLabSensorDescription, ...] = (
         value_fn=_non_negative("fan_rpm"),
     ),
     ThinkLabSensorDescription(
+        key="fan2_speed",
+        native_unit_of_measurement=REVOLUTIONS_PER_MINUTE,
+        state_class=SensorStateClass.MEASUREMENT,
+        value_fn=_non_negative("fan2_rpm"),
+    ),
+    ThinkLabSensorDescription(
         key="fan_duty",
         native_unit_of_measurement=PERCENTAGE,
         state_class=SensorStateClass.MEASUREMENT,
@@ -83,6 +89,19 @@ SENSORS: tuple[ThinkLabSensorDescription, ...] = (
         suggested_unit_of_measurement=UnitOfTime.MINUTES,
         suggested_display_precision=0,
         value_fn=lambda d: d.get("fan_manual_left_s"),
+    ),
+    ThinkLabSensorDescription(
+        key="fan_min_duty",
+        native_unit_of_measurement=PERCENTAGE,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        value_fn=lambda d: d.get("fan_min_pct"),
+    ),
+    ThinkLabSensorDescription(
+        key="fan_stall_kicks",
+        state_class=SensorStateClass.TOTAL_INCREASING,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        entity_registry_enabled_default=False,
+        value_fn=lambda d: d.get("fan_stall_kicks"),
     ),
     ThinkLabSensorDescription(
         key="host_answer_age",

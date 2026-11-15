@@ -72,7 +72,7 @@
         "name": "Case temperature"
       },
       "fan_speed": {
-        "name": "Fan speed"
+        "name": "Fan 1 speed"
       },
       "fan_duty": {
         "name": "Fan duty"
@@ -94,6 +94,15 @@
       },
       "last_restart": {
         "name": "Last restart"
+      },
+      "fan2_speed": {
+        "name": "Fan 2 speed"
+      },
+      "fan_min_duty": {
+        "name": "Fan minimum duty"
+      },
+      "fan_stall_kicks": {
+        "name": "Fan stall kicks"
       }
     },
     "binary_sensor": {
@@ -102,6 +111,9 @@
       },
       "fan_running": {
         "name": "Fan"
+      },
+      "fan_stalled": {
+        "name": "Fan stalled"
       }
     },
     "select": {

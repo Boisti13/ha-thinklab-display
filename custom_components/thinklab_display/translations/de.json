@@ -72,7 +72,7 @@
         "name": "Gehäusetemperatur"
       },
       "fan_speed": {
-        "name": "Lüfterdrehzahl"
+        "name": "Lüfter 1 Drehzahl"
       },
       "fan_duty": {
         "name": "Lüfterleistung"
@@ -94,6 +94,15 @@
       },
       "last_restart": {
         "name": "Letzter Neustart"
+      },
+      "fan2_speed": {
+        "name": "Lüfter 2 Drehzahl"
+      },
+      "fan_min_duty": {
+        "name": "Lüfter Mindestleistung"
+      },
+      "fan_stall_kicks": {
+        "name": "Lüfter Anlaufstöße"
       }
     },
     "binary_sensor": {
@@ -102,6 +111,9 @@
       },
       "fan_running": {
         "name": "Lüfter"
+      },
+      "fan_stalled": {
+        "name": "Lüfter blockiert"
       }
     },
     "select": {

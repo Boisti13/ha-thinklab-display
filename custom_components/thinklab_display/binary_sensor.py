@@ -32,6 +32,11 @@ BINARY_SENSORS: tuple[ThinkLabBinaryDescription, ...] = (
         value_fn=lambda d: d.get("host_stale"),
     ),
     ThinkLabBinaryDescription(
+        key="fan_stalled",
+        device_class=BinarySensorDeviceClass.PROBLEM,
+        value_fn=lambda d: d.get("fan_stalled"),
+    ),
+    ThinkLabBinaryDescription(
         key="fan_running",
         device_class=BinarySensorDeviceClass.RUNNING,
         value_fn=lambda d: d.get("fan_on"),
