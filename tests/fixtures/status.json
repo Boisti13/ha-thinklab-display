@@ -1,0 +1,1 @@
+{"hostname":"ThinkLab-esp32","ip":"192.168.1.50","ssid":"HomeWiFi","rssi_dbm":-52,"esp_uptime_sec":3600,"case_c":34.5,"build":"v0.3.2","mac":"AA:BB:CC:DD:EE:01","host_age_s":20,"host_stale":false,"parse_err":0,"image":"valid","fan_auto":true,"fan_pct":14,"fan_rpm":720,"fan_manual_left_s":0,"fan_curve_pct":13.7,"fan_on":true}

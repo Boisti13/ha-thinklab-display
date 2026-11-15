@@ -1,0 +1,138 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "ThinkLab-Display",
+        "description": "Adresse der Platine und die Anmeldung ihrer Webseite.",
+        "data": {
+          "host": "Adresse",
+          "username": "Benutzername",
+          "password": "Passwort"
+        },
+        "data_description": {
+          "host": "IP-Adresse oder Hostname, z. B. 192.168.1.50 oder thinklab-esp32.local"
+        }
+      },
+      "zeroconf_confirm": {
+        "title": "ThinkLab-Display gefunden",
+        "description": "{name} unter {host} gefunden. Gib die Anmeldung seiner Webseite ein.",
+        "data": {
+          "username": "Benutzername",
+          "password": "Passwort"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Neue Anmeldung",
+        "description": "Die Platine lehnt die gespeicherte Anmeldung ab.",
+        "data": {
+          "username": "Benutzername",
+          "password": "Passwort"
+        }
+      },
+      "reconfigure": {
+        "title": "Platine ändern",
+        "data": {
+          "host": "Adresse",
+          "username": "Benutzername",
+          "password": "Passwort"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unter dieser Adresse antwortet die Platine nicht.",
+      "invalid_auth": "Die Platine lehnt Benutzername oder Passwort ab.",
+      "not_a_board": "Dort antwortet etwas, aber kein ThinkLab-Display.",
+      "firmware_too_old": "Die Firmware der Platine ist zu alt; bitte auf 0.3.2 oder neuer aktualisieren.",
+      "unknown": "Unerwarteter Fehler, siehe Protokoll."
+    },
+    "abort": {
+      "already_configured": "Diese Platine ist schon eingerichtet.",
+      "reauth_successful": "Anmeldung aktualisiert.",
+      "reconfigure_successful": "Platine aktualisiert.",
+      "wrong_board": "Diese Adresse gehört zu einer anderen Platine."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Optionen",
+        "data": {
+          "scan_interval": "Abfrageintervall"
+        },
+        "data_description": {
+          "scan_interval": "Wie oft die Platine gelesen wird, in Sekunden."
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "case_temperature": {
+        "name": "Gehäusetemperatur"
+      },
+      "fan_speed": {
+        "name": "Lüfterdrehzahl"
+      },
+      "fan_duty": {
+        "name": "Lüfterleistung"
+      },
+      "fan_curve_demand": {
+        "name": "Lüfterkurve verlangt"
+      },
+      "fan_manual_time_left": {
+        "name": "Lüfter manuell noch"
+      },
+      "host_answer_age": {
+        "name": "Alter der Host-Antwort"
+      },
+      "parse_errors": {
+        "name": "Lesefehler"
+      },
+      "wifi_signal": {
+        "name": "WLAN-Signal"
+      },
+      "last_restart": {
+        "name": "Letzter Neustart"
+      }
+    },
+    "binary_sensor": {
+      "host_link_problem": {
+        "name": "Host-Verbindung"
+      },
+      "fan_running": {
+        "name": "Lüfter"
+      }
+    },
+    "select": {
+      "fan_mode": {
+        "name": "Lüftermodus",
+        "state": {
+          "auto": "Automatisch",
+          "manual": "Manuell"
+        }
+      }
+    },
+    "number": {
+      "fan_manual_duty": {
+        "name": "Lüfterleistung einstellen"
+      }
+    },
+    "button": {
+      "next_page": {
+        "name": "Nächste Seite"
+      },
+      "refresh_page": {
+        "name": "Seite neu zeichnen"
+      },
+      "restart": {
+        "name": "Neu starten"
+      }
+    }
+  },
+  "exceptions": {
+    "command_failed": {
+      "message": "Die Platine hat den Befehl nicht angenommen: {error}"
+    }
+  }
+}

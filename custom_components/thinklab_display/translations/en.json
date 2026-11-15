@@ -1,0 +1,138 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "ThinkLab display",
+        "description": "Address of the board and the login of its web page.",
+        "data": {
+          "host": "Address",
+          "username": "User name",
+          "password": "Password"
+        },
+        "data_description": {
+          "host": "IP address or host name, e.g. 192.168.1.50 or thinklab-esp32.local"
+        }
+      },
+      "zeroconf_confirm": {
+        "title": "ThinkLab display found",
+        "description": "Found {name} at {host}. Enter the login of its web page.",
+        "data": {
+          "username": "User name",
+          "password": "Password"
+        }
+      },
+      "reauth_confirm": {
+        "title": "New login",
+        "description": "The board refused the stored login.",
+        "data": {
+          "username": "User name",
+          "password": "Password"
+        }
+      },
+      "reconfigure": {
+        "title": "Change the board",
+        "data": {
+          "host": "Address",
+          "username": "User name",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "The board doesn't answer at this address.",
+      "invalid_auth": "The board refused the user name or password.",
+      "not_a_board": "Something answers there, but not a ThinkLab display.",
+      "firmware_too_old": "The board's firmware is too old; update it to 0.3.2 or later.",
+      "unknown": "Unexpected error, see the log."
+    },
+    "abort": {
+      "already_configured": "This board is already set up.",
+      "reauth_successful": "Login updated.",
+      "reconfigure_successful": "Board updated.",
+      "wrong_board": "That address belongs to a different board."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Options",
+        "data": {
+          "scan_interval": "Poll interval"
+        },
+        "data_description": {
+          "scan_interval": "How often to read the board, in seconds."
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "case_temperature": {
+        "name": "Case temperature"
+      },
+      "fan_speed": {
+        "name": "Fan speed"
+      },
+      "fan_duty": {
+        "name": "Fan duty"
+      },
+      "fan_curve_demand": {
+        "name": "Fan curve demand"
+      },
+      "fan_manual_time_left": {
+        "name": "Fan manual time left"
+      },
+      "host_answer_age": {
+        "name": "Host answer age"
+      },
+      "parse_errors": {
+        "name": "Parse errors"
+      },
+      "wifi_signal": {
+        "name": "Wi-Fi signal"
+      },
+      "last_restart": {
+        "name": "Last restart"
+      }
+    },
+    "binary_sensor": {
+      "host_link_problem": {
+        "name": "Host link"
+      },
+      "fan_running": {
+        "name": "Fan"
+      }
+    },
+    "select": {
+      "fan_mode": {
+        "name": "Fan mode",
+        "state": {
+          "auto": "Auto",
+          "manual": "Manual"
+        }
+      }
+    },
+    "number": {
+      "fan_manual_duty": {
+        "name": "Fan duty setting"
+      }
+    },
+    "button": {
+      "next_page": {
+        "name": "Next page"
+      },
+      "refresh_page": {
+        "name": "Redraw page"
+      },
+      "restart": {
+        "name": "Restart"
+      }
+    }
+  },
+  "exceptions": {
+    "command_failed": {
+      "message": "The board didn't take the command: {error}"
+    }
+  }
+}

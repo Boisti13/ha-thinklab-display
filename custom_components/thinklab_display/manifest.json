@@ -1,0 +1,13 @@
+{
+  "domain": "thinklab_display",
+  "name": "ThinkLab Display",
+  "codeowners": ["@Boisti13"],
+  "config_flow": true,
+  "documentation": "https://github.com/Boisti13/ha-thinklab-display",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/Boisti13/ha-thinklab-display/issues",
+  "requirements": [],
+  "version": "0.1.0",
+  "zeroconf": [{ "type": "_arduino._tcp.local.", "name": "thinklab*" }]
+}

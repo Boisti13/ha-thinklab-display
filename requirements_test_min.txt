@@ -1,0 +1,4 @@
+# The oldest Home Assistant the integration supports (hacs.json); the
+# GitHub checks run the tests against it too. Keep in step with hacs.json.
+pytest-homeassistant-custom-component==0.13.269  # Home Assistant 2025.8.0
+pycares<5  # 5.x breaks the aiodns of that release
