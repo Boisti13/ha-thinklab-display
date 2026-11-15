@@ -18,8 +18,10 @@ the fan and the screen.
 
 - **Set up in the UI**: the board is found on the network by itself
   (mDNS); enter its web login and you're done. Or type the address.
-- **Case temperature and fan**: duty, speed, what the temperature curve
-  asks for, auto or manual, minutes left in manual mode
+- **Case temperature and fans**: duty, both fans' speeds, what the
+  temperature curve asks for, auto or manual, minutes left in manual mode
+- **Stall watch**: a problem sensor when a fan stops although it should run
+  (the board kicks it and raises its minimum duty by itself)
 - **Fan control**: a mode select (auto / manual) and a duty slider; manual
   mode ends on the board by itself after an hour or at 50 °C
 - **Host link**: a problem sensor when the screen stops getting data from
@@ -38,7 +40,8 @@ the fan and the screen.
 | 3 | *Settings → Devices & services*: accept the discovered board, or *Add integration → ThinkLab Display* |
 | 4 | Enter the board's web login (`WEB_USER`/`WEB_PASS` from its `secrets.ini`) |
 
-Needs board firmware **0.3.2** or later (it sends the board's MAC address,
+Needs board firmware **0.3.2** or later (fan 2 and the stall entities need
+0.3.4; with older firmware they stay *unknown*) (it sends the board's MAC address,
 which the integration uses as the device's ID) and Home Assistant 2025.8 or
 later.
 
@@ -50,15 +53,18 @@ One device per board (named after its host name, e.g. *ThinkLab-esp32*).
 |---|---|---|
 | Case temperature | sensor | DS18B20 in the case, °C |
 | Fan duty | sensor | PWM duty the fan gets, % |
-| Fan speed | sensor | tachometer, rpm |
+| Fan 1 speed, Fan 2 speed | sensor | tachometers, rpm (both fans share the PWM line) |
 | Fan manual time left | sensor | until the board goes back to auto |
 | Fan curve demand | sensor (diagnostic) | what the temperature curve asks for, % |
 | Host answer age | sensor (diagnostic) | seconds since the last answer from the host |
 | Wi-Fi signal | sensor (diagnostic) | dBm |
 | Last restart | sensor (diagnostic) | when the board last started |
 | Parse errors | sensor (diagnostic, off by default) | answers the board couldn't read |
+| Fan minimum duty | sensor (diagnostic) | raised by the board when a fan keeps stalling |
+| Fan stall kicks | sensor (diagnostic, off by default) | stall kicks since the board started |
 | Host link | binary sensor (problem) | on when the screen marks its data stale |
-| Fan | binary sensor (running) | fan on or off |
+| Fan stalled | binary sensor (problem) | a fan reads 0 rpm although it should run |
+| Fan | binary sensor (running) | fans on or off |
 | Fan mode | select | *auto* (temperature curve) or *manual* (keeps the current duty) |
 | Fan duty setting | number | sets manual mode at that duty, 0–100 % |
 | Next page, Redraw page | button | e-paper screen |
