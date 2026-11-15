@@ -102,6 +102,45 @@ async def test_zeroconf(hass: HomeAssistant, aioclient_mock: AiohttpClientMocker
     assert result["data"] == {CONF_HOST: HOST} | LOGIN
 
 
+ZEROCONF_MAC = ZeroconfServiceInfo(
+    ip_address=ip_address("10.0.0.9"),
+    ip_addresses=[ip_address("10.0.0.9")],
+    hostname="ThinkLab-esp32.local.",
+    name="ThinkLab-esp32._arduino._tcp.local.",
+    port=3232,
+    type="_arduino._tcp.local.",
+    properties={"mac": MAC.upper(), "board": "esp32c3"},
+)
+
+
+async def test_zeroconf_with_mac_updates_known_board(hass: HomeAssistant, entry: MockConfigEntry):
+    result = await hass.config_entries.flow.async_init(
+        DOMAIN, context={"source": config_entries.SOURCE_ZEROCONF}, data=ZEROCONF_MAC
+    )
+    assert result["type"] is FlowResultType.ABORT
+    assert result["reason"] == "already_configured"
+    assert entry.data[CONF_HOST] == "10.0.0.9"  # moved to a new address
+
+
+async def test_manual_setup_closes_discovery(
+    hass: HomeAssistant, aioclient_mock: AiohttpClientMocker
+):
+    discovered = await hass.config_entries.flow.async_init(
+        DOMAIN, context={"source": config_entries.SOURCE_ZEROCONF}, data=ZEROCONF_MAC
+    )
+    assert discovered["type"] is FlowResultType.FORM
+    mock_board(aioclient_mock)
+    result = await hass.config_entries.flow.async_init(
+        DOMAIN, context={"source": config_entries.SOURCE_USER}
+    )
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {CONF_HOST: HOST} | LOGIN
+    )
+    assert result["type"] is FlowResultType.CREATE_ENTRY
+    await hass.async_block_till_done()
+    assert not [f for f in hass.config_entries.flow.async_progress() if f["handler"] == DOMAIN]
+
+
 async def test_zeroconf_known_host_aborts(hass: HomeAssistant, entry: MockConfigEntry):
     result = await hass.config_entries.flow.async_init(
         DOMAIN, context={"source": config_entries.SOURCE_ZEROCONF}, data=ZEROCONF

@@ -4,6 +4,9 @@ All notable changes, newest first. Each release is tagged `vX.Y.Z` on `main`.
 
 ## Unreleased
 
+### Fixed
+- A discovered board that is already set up is no longer offered again: with firmware 0.3.3 or later the board announces its MAC, so discovery recognises it (and follows a new address), and setting a board up by hand closes its open discovery.
+
 ## v0.1.0 — 2026-11-15
 
 ### Added

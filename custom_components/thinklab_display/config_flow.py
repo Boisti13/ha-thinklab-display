@@ -89,7 +89,9 @@ class ThinkLabConfigFlow(ConfigFlow, domain=DOMAIN):
                 user_input[CONF_HOST], user_input[CONF_USERNAME], user_input[CONF_PASSWORD]
             )
             if not errors:
-                await self.async_set_unique_id(format_mac(data["mac"]))
+                # A discovery of the same board may be open: go ahead anyway,
+                # Home Assistant closes it when this entry is created.
+                await self.async_set_unique_id(format_mac(data["mac"]), raise_on_progress=False)
                 self._abort_if_unique_id_configured(updates={CONF_HOST: user_input[CONF_HOST]})
                 return self.async_create_entry(
                     title=data.get("hostname") or "ThinkLab display", data=user_input
@@ -107,6 +109,13 @@ class ThinkLabConfigFlow(ConfigFlow, domain=DOMAIN):
     async def async_step_zeroconf(self, discovery_info: ZeroconfServiceInfo) -> ConfigFlowResult:
         """Found by its mDNS announcement (the board announces itself for OTA)."""
         host = str(discovery_info.ip_address)
+        # Firmware 0.3.3+ announces its MAC: the board's ID before any login.
+        # With it, a board that is set up already is recognised (its address
+        # updated), and setting it up by hand closes this flow.
+        mac = discovery_info.properties.get("mac")
+        if mac:
+            await self.async_set_unique_id(format_mac(mac))
+            self._abort_if_unique_id_configured(updates={CONF_HOST: host})
         self._async_abort_entries_match({CONF_HOST: host})
         self._host = host
         self._name = discovery_info.name.split(".", 1)[0]
