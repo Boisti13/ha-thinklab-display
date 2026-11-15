@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect x="16" y="16" width="480" height="480" rx="96" fill="#2b3a4a"/>
+  <!-- e-paper screen -->
+  <rect x="76" y="92" width="240" height="300" rx="18" fill="#f2f0e8"/>
+  <rect x="76" y="92" width="240" height="52" rx="18" fill="#f2f0e8"/>
+  <line x1="96" y1="146" x2="296" y2="146" stroke="#222" stroke-width="8"/>
+  <rect x="140" y="110" width="112" height="20" rx="6" fill="#222"/>
+  <rect x="98" y="176" width="70" height="16" rx="5" fill="#222"/>
+  <rect x="218" y="176" width="76" height="16" rx="5" fill="#222"/>
+  <rect x="98" y="220" width="56" height="16" rx="5" fill="#222"/>
+  <rect x="234" y="220" width="60" height="16" rx="5" fill="#222"/>
+  <rect x="98" y="264" width="84" height="16" rx="5" fill="#222"/>
+  <rect x="246" y="264" width="48" height="16" rx="5" fill="#222"/>
+  <rect x="98" y="308" width="64" height="16" rx="5" fill="#222"/>
+  <rect x="226" y="308" width="68" height="16" rx="5" fill="#222"/>
+  <!-- fan -->
+  <circle cx="380" cy="356" r="92" fill="#41bdf5"/>
+  <path fill="#ffffff" d="M0 -12 C 10 -60 50 -66 58 -40 C 62 -24 30 -10 0 -12 Z" transform="translate(380 356) rotate(0)"/>
+  <path fill="#ffffff" d="M0 -12 C 10 -60 50 -66 58 -40 C 62 -24 30 -10 0 -12 Z" transform="translate(380 356) rotate(120)"/>
+  <path fill="#ffffff" d="M0 -12 C 10 -60 50 -66 58 -40 C 62 -24 30 -10 0 -12 Z" transform="translate(380 356) rotate(240)"/>
+  <circle cx="380" cy="356" r="14" fill="#2b3a4a"/>
+</svg>
