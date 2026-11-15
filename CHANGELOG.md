@@ -4,6 +4,8 @@ All notable changes, newest first. Each release is tagged `vX.Y.Z` on `main`.
 
 ## Unreleased
 
+## v0.2.0 — 2026-11-15
+
 ### Added
 - **Fan 2 speed** sensor (both fans share the board's PWM line), **Fan stalled** problem sensor, and the diagnostics **Fan minimum duty** and **Fan stall kicks** (off by default). They need firmware 0.3.4; with older firmware they stay unknown.
 
